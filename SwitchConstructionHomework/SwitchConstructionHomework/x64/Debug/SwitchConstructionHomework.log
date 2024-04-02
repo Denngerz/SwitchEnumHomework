@@ -1,0 +1,19 @@
+﻿  Switches.cpp
+C:\Users\denngerz\source\repos\SwitchConstructionHomework\SwitchConstructionHomework\Switches.cpp(288,23): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\denngerz\source\repos\SwitchConstructionHomework\SwitchConstructionHomework\Switches.cpp(323,12): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\denngerz\source\repos\SwitchConstructionHomework\SwitchConstructionHomework\Switches.cpp(725,3): warning C4809: switch statement has redundant 'default' label; all possible 'case' labels are given
+C:\Users\denngerz\source\repos\SwitchConstructionHomework\SwitchConstructionHomework\Switches.cpp(739,3): warning C4809: switch statement has redundant 'default' label; all possible 'case' labels are given
+C:\Users\denngerz\source\repos\SwitchConstructionHomework\SwitchConstructionHomework\Switches.cpp(753,3): warning C4809: switch statement has redundant 'default' label; all possible 'case' labels are given
+C:\Users\denngerz\source\repos\SwitchConstructionHomework\SwitchConstructionHomework\Switches.cpp(767,3): warning C4809: switch statement has redundant 'default' label; all possible 'case' labels are given
+C:\Users\denngerz\source\repos\SwitchConstructionHomework\SwitchConstructionHomework\Switches.cpp(781,3): warning C4809: switch statement has redundant 'default' label; all possible 'case' labels are given
+C:\Users\denngerz\source\repos\SwitchConstructionHomework\SwitchConstructionHomework\Switches.cpp(795,3): warning C4809: switch statement has redundant 'default' label; all possible 'case' labels are given
+C:\Users\denngerz\source\repos\SwitchConstructionHomework\SwitchConstructionHomework\Switches.cpp(809,3): warning C4809: switch statement has redundant 'default' label; all possible 'case' labels are given
+C:\Users\denngerz\source\repos\SwitchConstructionHomework\SwitchConstructionHomework\Switches.cpp(823,3): warning C4809: switch statement has redundant 'default' label; all possible 'case' labels are given
+C:\Users\denngerz\source\repos\SwitchConstructionHomework\SwitchConstructionHomework\Switches.cpp(837,3): warning C4809: switch statement has redundant 'default' label; all possible 'case' labels are given
+C:\Users\denngerz\source\repos\SwitchConstructionHomework\SwitchConstructionHomework\Switches.cpp(851,3): warning C4809: switch statement has redundant 'default' label; all possible 'case' labels are given
+C:\Users\denngerz\source\repos\SwitchConstructionHomework\SwitchConstructionHomework\Switches.cpp(865,3): warning C4809: switch statement has redundant 'default' label; all possible 'case' labels are given
+C:\Users\denngerz\source\repos\SwitchConstructionHomework\SwitchConstructionHomework\Switches.cpp(879,3): warning C4809: switch statement has redundant 'default' label; all possible 'case' labels are given
+C:\Users\denngerz\source\repos\SwitchConstructionHomework\SwitchConstructionHomework\Switches.cpp(91): warning C4715: 'Switches::Switches6': not all control paths return a value
+C:\Users\denngerz\source\repos\SwitchConstructionHomework\SwitchConstructionHomework\Switches.cpp(48): warning C4715: 'Switches::Switches4': not all control paths return a value
+C:\Users\denngerz\source\repos\SwitchConstructionHomework\SwitchConstructionHomework\Switches.cpp(114): warning C4715: 'Switches::Switches7': not all control paths return a value
+  SwitchConstructionHomework.vcxproj -> C:\Users\denngerz\source\repos\SwitchConstructionHomework\x64\Debug\SwitchConstructionHomework.exe
