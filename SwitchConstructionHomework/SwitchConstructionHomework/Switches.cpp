@@ -2,64 +2,60 @@
 #include <iostream>
 #include <map>
 
-int Switches::Switches4(Month month) {
-	switch (month)
+int Switches::Switches4(int month) {
+	static std::map<Month, int> daysInMonth = {
+		{Month::January, 31},
+		{Month::February, 28},
+		{Month::March, 31},
+		{Month::April, 30},
+		{Month::May, 31},
+		{Month::June, 30},
+		{Month::July, 31},
+		{Month::August, 31},
+		{Month::September, 30},
+		{Month::October, 31},
+		{Month::November, 30},
+		{Month::December, 31}
+	};
+	month--;
+	switch (static_cast<Month>(month))
 	{
 	case Month::January:
+	case Month::March:
+	case Month::May:
+	case Month::July:
+	case Month::August:
+	case Month::October:
+	case Month::December:
 		return 31;
 		break;
 	case Month::February:
 		return 28;
 		break;
-	case Month::March:
-		return 31;
-		break;
 	case Month::April:
-		return 30;
-		break;
-	case Month::May:
-		return 31;
-		break;
 	case Month::June:
-		return 30;
-		break;
-	case Month::July:
-		return 31;
-		break;
-	case Month::August:
-		return 31;
-		break;
 	case Month::September:
-		return 30;
-		break;
-	case Month::October:
-		return 31;
-		break;
 	case Month::November:
 		return 30;
 		break;
-	case Month::December:
-		return 31;
-		break;
-
 	default:
 		break;
 	}
 }
 
-void Switches::Switches5(Sign sign, float a, float b) {
-	switch (static_cast<int>(sign))
+void Switches::Switches5(const int sign, float a, float b) {
+	switch (static_cast<Sign>(sign))
 	{
-	case static_cast<int>(Sign::Add):
+	case Sign::Add:
 		std::cout << a + b << std::endl;
 		break;
-	case static_cast<int>(Sign::Minus):
+	case Sign::Minus:
 		std::cout << a - b << std::endl;
 		break;
-	case static_cast<int>(Sign::Multiply):
+	case Sign::Multiply:
 		std::cout << a * b << std::endl;
 		break;
-	case static_cast<int>(Sign::Devide):
+	case Sign::Devide:
 		std::cout << a / b << std::endl;
 		break;
 	default:
@@ -67,7 +63,7 @@ void Switches::Switches5(Sign sign, float a, float b) {
 	}
 }
 
-float Switches::Switches6(float size, Length lenght) {
+float Switches::Switches6(float size, const int lenght) {
 	switch (static_cast<Length>(lenght))
 	{
 	case Length::Decimetere:
@@ -90,7 +86,7 @@ float Switches::Switches6(float size, Length lenght) {
 	}
 }
 
-float Switches::Switches7(float mass_of_object, Mass mass) {
+float Switches::Switches7(float mass_of_object, const int mass) {
 	switch (static_cast<Mass>(mass)) 
 	{
 	case Mass::Kilogram:
@@ -114,7 +110,7 @@ float Switches::Switches7(float mass_of_object, Mass mass) {
 }
 
 void Switches::Switches8(int day, Month month) {
-	std::map<Month, int> daysInMonth = {
+	static std::map<Month, int> daysInMonth = {
 		{Month::January, 31},
 		{Month::February, 28},
 		{Month::March, 31},
@@ -134,7 +130,9 @@ void Switches::Switches8(int day, Month month) {
 	{
 	case 0:
 		temp--;
-		temp < 0 ? temp = 11 : temp = temp;
+		if (temp < 0) {
+			temp = 11;
+		}
 		std::cout << "Day: " << daysInMonth[static_cast<Month>(temp)] << std::endl;
 		std::cout << "Month: " << temp + 1 << std::endl;
 		break;
@@ -167,7 +165,9 @@ void Switches::Switches9(int day, Month month) {
 	{
 	case 1:
 		temp++;
-		temp > 11 ? temp = 0 : temp = temp;
+		if (temp > 11) {
+			temp = 0;
+		}
 		std::cout << "Day: " << 1 << std::endl;
 		std::cout << "Month: " << temp + 1 << std::endl;
 		break;
@@ -178,48 +178,48 @@ void Switches::Switches9(int day, Month month) {
 	}
 }
 
-void Switches::Switches10(Sides side, Commands command) {
-	switch (command)
+void Switches::Switches10(Sides side, const int command) {
+	std::map<Commands, int> commandsInNumbers = {
+		{Commands::Continue, 0},
+		{Commands::TurnLeft, 1},
+		{Commands::TurnRight, -1}
+	};
+
+	std::map<Sides, int> sidesInNumbers = {
+		{Sides::South, 1},
+		{Sides::East, 2},
+		{Sides::North, 3},
+		{Sides::West, 4},
+	};
+
+	switch (static_cast<Commands>(command))
 	{
-	case Switches::Commands::Continue:
+
+
+	case Commands::Continue:
 		std::cout << "Continue going " << static_cast<char>(side) << std::endl;
 		break;
-	case Switches::Commands::TurnRight:
-		switch (side) {
-		case Sides::North:
-			side = Sides::East;
-			break;
-		case Sides::East:
-			side = Sides::South;
-			break;
-		case Sides::West:
-			side = Sides::North;
-			break;
-		case Sides::South:
-			side = Sides::West;
-			break;
+
+
+	case Commands::TurnRight:
+	case Commands::TurnLeft:
+		int sideNum = sidesInNumbers[side];
+		int sideAfterRotation = sideNum + commandsInNumbers[static_cast<Commands>(command)];
+		if (sideAfterRotation == 0) {
+			sideAfterRotation = 4;
+		}
+		else if (sideAfterRotation == 5) {
+			sideAfterRotation = 1;
+		}
+		for (const auto& pair : sidesInNumbers) {
+			if (pair.second == sideAfterRotation) {
+				side = pair.first;
+				break;
+			}
 		}
 		std::cout << "Turned to " << static_cast<char>(side) << std::endl;
-			break;
-	case Switches::Commands::TurnLeft:
-		switch (side) {
-		case Sides::North:
-			side = Sides::West;
-			break;
-		case Sides::East:
-			side = Sides::North;
-			break;
-		case Sides::West:
-			side = Sides::South;
-			break;
-		case Sides::South:
-			side = Sides::East;
-			break;
-		}
-		std::cout << "Turned to " << static_cast<char>(side) << std::endl;
-			break;
-	default:
 		break;
+
 	}
 
 }
@@ -229,7 +229,7 @@ void Switches::Switches11(Sides side, Commands2 command1, Commands2 command2){
 	for (int i = 0; i < 2; i++) {
 		switch (array[i])
 		{
-		case Switches::Commands2::TurnArround:
+		case Commands2::TurnArround:
 			switch (side) {
 			case Sides::North:
 				side = Sides::South;
@@ -245,7 +245,7 @@ void Switches::Switches11(Sides side, Commands2 command1, Commands2 command2){
 				break;
 			}
 			break;
-		case Switches::Commands2::TurnRight:
+		case Commands2::TurnRight:
 			switch (side) {
 			case Sides::North:
 				side = Sides::East;
@@ -261,7 +261,7 @@ void Switches::Switches11(Sides side, Commands2 command1, Commands2 command2){
 				break;
 			}
 			break;
-		case Switches::Commands2::TurnLeft:
+		case Commands2::TurnLeft:
 			switch (side) {
 			case Sides::North:
 				side = Sides::West;
@@ -289,22 +289,22 @@ void Switches::Switches12(float size, ElementsCircle element) {
 
 	switch (element)
 	{
-	case Switches::ElementsCircle::Radius:
+	case ElementsCircle::Radius:
 		std::cout << "D = " << size + size << std::endl;
 		std::cout << "L = " << 2 * pi * size << std::endl;
 		std::cout << "S = " << pi * size * size << std::endl;
 		break;
-	case Switches::ElementsCircle::Diameter:
+	case ElementsCircle::Diameter:
 		std::cout << "R = " << size / 2 << std::endl;
 		std::cout << "L = " << size * size << std::endl;
 		std::cout << "S = " << pi * size * size / 4 << std::endl;
 		break;
-	case Switches::ElementsCircle::Length:
+	case ElementsCircle::Length:
 		std::cout << "R = " << size / (2*pi) << std::endl;
 		std::cout << "D = " << size / pi << std::endl;
 		std::cout << "S = " << size * size / (4*pi) << std::endl;
 		break;
-	case Switches::ElementsCircle::Area:
+	case ElementsCircle::Area:
 		std::cout << "R = " << sqrt(size / pi) << std::endl;
 		std::cout << "D = " << 2 * sqrt(size / pi) << std::endl;
 		std::cout << "L = " << sqrt(size / pi) * 2 * pi << std::endl;
@@ -319,26 +319,26 @@ void Switches::Switches13(float size, ElementsTriangle element) {
 	float h;
 	switch (element)
 	{
-	case Switches::ElementsTriangle::Side1:
+	case ElementsTriangle::Side1:
 		c = size * sqrt(2);
 	    h = c / 2;
 		std::cout << "c = " << c << std::endl;
 		std::cout << "h = " << h << std::endl;
 		std::cout << "s = " << c * h / 2 << std::endl;
 		break;
-	case Switches::ElementsTriangle::Side2:
+	case ElementsTriangle::Side2:
 		h = size / 2;
 		std::cout << "a = " << size / sqrt(2) << std::endl;
 		std::cout << "h = " << h << std::endl;
 		std::cout << "s = " << h * size / 2 << std::endl;
 		break;
-	case Switches::ElementsTriangle::Height:
+	case ElementsTriangle::Height:
 		c = size * 2;
 		std::cout << "a = " << c / sqrt(2) << std::endl;
 		std::cout << "c = " << c  << std::endl;
 		std::cout << "s = " << size * c /2 << std::endl;
 		break;
-	case Switches::ElementsTriangle::Square:
+	case ElementsTriangle::Square:
 		c = sqrt(size * 4);
 		std::cout << "a = " << c * sqrt(2) << std::endl;
 		std::cout << "c = " << c << std::endl;
@@ -373,31 +373,31 @@ void Switches::Switches15(CardsNumber number, CardsType type) {
 
 	switch (number)
 	{
-	case Switches::CardsNumber::Six:
+	case CardsNumber::Six:
 		std::cout << cardsNumberStr[CardsNumber::Six];
 		break;
-	case Switches::CardsNumber::Seven:
+	case CardsNumber::Seven:
 		std::cout << cardsNumberStr[CardsNumber::Seven];
 		break;
-	case Switches::CardsNumber::Eight:
+	case CardsNumber::Eight:
 		std::cout << cardsNumberStr[CardsNumber::Eight];
 		break;
-	case Switches::CardsNumber::Nine:
+	case CardsNumber::Nine:
 		std::cout << cardsNumberStr[CardsNumber::Nine];
 		break;
-	case Switches::CardsNumber::Ten:
+	case CardsNumber::Ten:
 		std::cout << cardsNumberStr[CardsNumber::Ten];
 		break;
-	case Switches::CardsNumber::Eleven:
+	case CardsNumber::Eleven:
 		std::cout << cardsNumberStr[CardsNumber::Eleven];
 		break;
-	case Switches::CardsNumber::Twelve:
+	case CardsNumber::Twelve:
 		std::cout << cardsNumberStr[CardsNumber::Twelve];
 		break;
-	case Switches::CardsNumber::Thirteen:
+	case CardsNumber::Thirteen:
 		std::cout << cardsNumberStr[CardsNumber::Thirteen];
 		break;
-	case Switches::CardsNumber::Fourteen:
+	case CardsNumber::Fourteen:
 		std::cout << cardsNumberStr[CardsNumber::Fourteen];
 		break;
 	default:
@@ -406,16 +406,16 @@ void Switches::Switches15(CardsNumber number, CardsType type) {
 
 	switch (type) 
 	{
-	case Switches::CardsType::Hearts:
+	case CardsType::Hearts:
 		std::cout << cardsTypeStr[CardsType::Hearts] << std::endl;
 		break;
-	case Switches::CardsType::Clubs:
+	case CardsType::Clubs:
 		std::cout << cardsTypeStr[CardsType::Clubs] << std::endl;
 		break;
-	case Switches::CardsType::Diamonds:
+	case CardsType::Diamonds:
 		std::cout << cardsTypeStr[CardsType::Diamonds] << std::endl;
 		break;
-	case Switches::CardsType::Spades:
+	case CardsType::Spades:
 		std::cout << cardsTypeStr[CardsType::Spades] << std::endl;
 		break;
 	default:
@@ -510,41 +510,44 @@ void Switches::Switches18(int num) {
 	switch (hundreds)
 	{
 	case 1:
-		std::cout << "one hundred ";
+		std::cout << "one ";
 		break;
 	case 2:
-		std::cout << "two hundred ";
+		std::cout << "two ";
 		break;
 	case 3:
-		std::cout << "three hundred ";
+		std::cout << "three ";
 		break;
 	case 4:
-		std::cout << "four hundred ";
+		std::cout << "four ";
 		break;
 	case 5:
-		std::cout << "five hundred ";
+		std::cout << "five ";
 		break;
 	case 6:
-		std::cout << "six hundred ";
+		std::cout << "six ";
 		break;
 	case 7:
-		std::cout << "seven hundred ";
+		std::cout << "seven ";
 		break;
 	case 8:
-		std::cout << "eight hundred ";
+		std::cout << "eight ";
 		break;
 	case 9:
-		std::cout << "nine hundred ";
+		std::cout << "nine ";
 		break;
 	default:
 		break;
 	}
-
+	std::cout << "hundred ";
 	switch (tens)
 	{
 	case 1:
 		switch (ones)
 		{
+		case 0:
+			std::cout << "ten" << std::endl;
+			break;
 		case 1:
 			std::cout << "eleven" << std::endl;
 			break;
@@ -711,173 +714,124 @@ void Switches::Switches20(int day, int month) {
 	switch (month)
 	{
 	case 1:
-		dayCheck = day >= 20;
-		switch (dayCheck)
-		{
-		case 1:
+		if (day >= 20) {
 			type = "Vodoley";
 			break;
-		case 0:
+		}
+		else {
 			type = "Kozerog";
-			break;
-		default:
 			break;
 		}
 		break;
 	case 2:
-		dayCheck = day <= 18;
-		switch (dayCheck)
-		{
-		case 1:
+		if (day <= 18) {
 			type = "Vodoley";
 			break;
-		case 0:
+		}
+		else {
 			type = "Riby";
-			break;
-		default:
 			break;
 		}
 		break;
 	case 3:
-		dayCheck = day <= 20;
-		switch (dayCheck)
-		{
-		case 1:
+		if (day <= 20) {
 			type = "Riby";
 			break;
-		case 0:
+		}
+		else {
 			type = "Oven";
-			break;
-		default:
 			break;
 		}
 		break;
 	case 4:
-		dayCheck = day <= 19;
-		switch (dayCheck)
-		{
-		case 1:
+		if (day <= 19) {
 			type = "Oven";
 			break;
-		case 0:
+		}
+		else {
 			type = "Telec";
-			break;
-		default:
 			break;
 		}
 		break;
 	case 5:
-		dayCheck = day <= 20;
-		switch (dayCheck)
-		{
-		case 1:
+		if (day <= 20) {
 			type = "Telec";
 			break;
-		case 0:
+		}
+		else {
 			type = "Bliznecy";
-			break;
-		default:
 			break;
 		}
 		break;
 	case 6:
-		dayCheck = day <= 21;
-		switch (dayCheck)
-		{
-		case 1:
+		if (day <= 21) {
 			type = "Bliznecy";
 			break;
-		case 0:
+		}
+		else {
 			type = "Rak";
-			break;
-		default:
 			break;
 		}
 		break;
 	case 7:
-		dayCheck = day <= 22;
-		switch (dayCheck)
-		{
-		case 1:
+		if (day <= 22) {
 			type = "Rak";
 			break;
-		case 0:
+		}
+		else {
 			type = "Lev";
-			break;
-		default:
 			break;
 		}
 		break;
 	case 8:
-		dayCheck = day <= 22;
-		switch (dayCheck)
-		{
-		case 1:
+		if (day <= 22) {
 			type = "Lev";
 			break;
-		case 0:
-			type = "Deva";
-			break;
-		default:
+		}
+		else {
+			type = "VeDevasy";
 			break;
 		}
 		break;
 	case 9:
-		dayCheck = day <= 22;
-		switch (dayCheck)
-		{
-		case 1:
+		if (day <= 22) {
 			type = "Deva";
 			break;
-		case 0:
+		}
+		else {
 			type = "Vesy";
-			break;
-		default:
 			break;
 		}
 		break;
 	case 10:
-		dayCheck = day <= 22;
-		switch (dayCheck)
-		{
-		case 1:
+		if (day <= 22) {
 			type = "Vesy";
 			break;
-		case 0:
+		}
+		else {
 			type = "Scorpion";
-			break;
-		default:
 			break;
 		}
 		break;
 	case 11:
-		dayCheck = day <= 22;
-		switch (dayCheck)
-		{
-		case 1:
+		if (day <= 22) {
 			type = "Scorpion";
 			break;
-		case 0:
+		}
+		else {
 			type = "Strelec";
-			break;
-		default:
 			break;
 		}
 		break;
 	case 12:
-		dayCheck = day <= 21;
-		switch (dayCheck)
-		{
-		case 1:
+		if (day <= 21) {
 			type = "Strelec";
 			break;
-		case 0:
+		}
+		else {
 			type = "Kozerog";
 			break;
-		default:
-			break;
 		}
-		break;
 	default:
 		break;
 	}

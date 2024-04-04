@@ -4,7 +4,7 @@
 int main()
 {
     Switches task;
-    task.Switches20(10,6);
+    task.Switches10(Sides::West, -1);
 }
 
 
